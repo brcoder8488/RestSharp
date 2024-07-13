@@ -1,0 +1,25 @@
+using System;
+using System.Data;
+using System.Web.UI.WebControls;
+using RestSharp;
+
+
+public partial class AdminPanel_Default : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+          Api_RestSharp();
+        }
+    }
+    protected void Api_RestSharp()
+    {
+        var url = "";
+        var client = new RestClient(url);
+        client.Timeout = -1;
+        var request = new RestRequest(Method.GET);
+        IRestResponse response = client.Execute(request);
+        Console.WriteLine(response.Content);
+    }
+}
