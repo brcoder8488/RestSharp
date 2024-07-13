@@ -1,5 +1,9 @@
 using System;
 using System.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Web;
 using System.Web.UI.WebControls;
 using RestSharp;
 
@@ -21,5 +25,25 @@ public partial class AdminPanel_Default : System.Web.UI.Page
         var request = new RestRequest(Method.GET);
         IRestResponse response = client.Execute(request);
         Console.WriteLine(response.Content);
+         string _result = response.Content;
+         var C = JsonConvert.DeserializeObject<cyrus>(_result);
+    }
+    //------------cyrus class--------
+    public class cyrus
+    {
+        [DataMember(Order = 0)]
+        public string ApiTransID { get; set; }
+
+        [DataMember(Order = 1)]
+        public string status { get; set; }
+
+        [DataMember(Order = 2)]
+        public string ErrorMessage { get; set; }
+
+        [DataMember(Order = 3)]
+        public string OperatorRef { get; set; }
+
+        [DataMember(Order = 4)]
+        public string TransactionDate { get; set; }
     }
 }
